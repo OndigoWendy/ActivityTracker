@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{#block "title"}}AnimalTracker{{/block}}</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+</head>
+<body>
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="/">Home</a></li>
+    <li role="presentation"><a href="/sightings/new">Record a Sighting</a></li>
+
+    <li role="presentation" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            Category Menu <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            {{#if rangers}}
+                {{#each rangers}}
+                    <li><a href="/rangers/{{id}}">{{name}}</a></li>
+                {{/each}}
+                <li><a href="/rangers/new">Register as a Ranger</a></li>
+
+            {{else}}
+                <li><a href="/rangers/new">Register as a Ranger</a></li>
+            {{/if}}
+        </ul>
+    </li>
+</ul>
+<div class="container">
+    <!--begin main template-->
+    <div class="page-header">
+        <h1>SMART RANGER <small>SAVING THE PLANET</small></h1>
+    </div>
+
+    <div class="col-md-12">
+        {{#block "content"}}
+        {{/block}}
+
+    </div>
+</div>
+<!--end main template-->
+{{#block "footer"}}
+    <footer class="footer">
+        <div class="container">
+            <hr>
+            <p class="text-muted">
+                <a href="/rangers/delete">Delete ranger and sighting information</a><br>
+                <a href="/sightings/delete">Delete all sightings</a>
+            </p>
+        </div>
+    </footer>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </html>
+{{/block}}

@@ -1,0 +1,16 @@
+{{#partial "content"}}
+
+    <h1> RECENT SIGHTINGS</h1>
+
+    {{#if sightings}}
+        {{#each sightings }}
+            <p><a href="/rangers/{{categoryId}}/sightings/{{id}}">{{description}}</a></p>
+        {{/each}}
+    {{else}}
+        <p>Login to record a sighting!</p>
+        <p>Status {{ sighting.description }}</p>
+        <p>Category of this task: {{ ranger.name }}</p>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}
