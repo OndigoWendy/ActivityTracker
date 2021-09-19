@@ -43,14 +43,38 @@ public class App {
             return new ModelAndView(model, "ranger-form.hbs"); //new layout
         }, new HandlebarsTemplateEngine());
 
+        //post: ranger registration inputs
+        post("/rangers", (req, res) -> { //new
+            Map<String, Object> model = new HashMap<>();
+            String name = req.queryParams("name");
+           Ranger newRanger = new Ranger(name);
+            rangerDao.add(newRanger);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
         //get: form to record sightings
-        get("/sightings", (req, res) -> {
+        get("/sightings/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Sighting> sightings = sightingDao.getAll();
-            model.put("rangers", sightings);
+            model.put("sightings", sightings);
             return new ModelAndView(model, "sighting-form.hbs");
         }, new HandlebarsTemplateEngine());
 
+//post: sighting  inputs
+        post("/sightings", (req, res) -> { //new
+            Map<String, Object> model = new HashMap<>();
+            String description = req.queryParams("description");
+            int categoryId = Integer.parseInt(req.queryParams("categoryId"));
+            String animal = req.queryParams("animal");
+            String age = req.queryParams("age");
+            String health = req.queryParams("health");
+            String zone = req.queryParams("zone");
+            Sighting newSighting = new Sighting( description, categoryId, animal,age,health,zone);
+            sightingDao.add(newSighting);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
 
 //        //get: all rangers and their sightings
 //        get("/", (req, res) -> {
@@ -62,15 +86,7 @@ public class App {
 //            return new ModelAndView(model, "index.hbs");
 //        }, new HandlebarsTemplateEngine());
 //
-//        //post: ranger registration inputs
-//        post("/rangers", (req, res) -> { //new
-//            Map<String, Object> model = new HashMap<>();
-//            String name = req.queryParams("name");
-//           Ranger newRanger = new Ranger(name);
-//            rangerDao.add(newRanger);
-//            res.redirect("/");
-//            return null;
-//        }, new HandlebarsTemplateEngine());
+//
 //
 //        //get  specific ranger and their sighting
 //        get("/rangers/:id", (req, res) -> {

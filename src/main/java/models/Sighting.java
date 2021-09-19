@@ -23,10 +23,12 @@ public class Sighting {
         this.age = age;
         this.health = health;
         this.zone = zone;
-        this.location = location.trim();
-        this.timestamp = new Timestamp(new Date().getTime());
+//        this.location = location.trim();
+//        this.timestamp = new Timestamp(new Date().getTime());
 
     }
+
+
 
     @Override
     public boolean equals(Object o) {
