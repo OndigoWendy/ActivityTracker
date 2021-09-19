@@ -26,8 +26,7 @@ public class App {
         staticFileLocation("/public");
 
 
-
-     //After
+        //After
 //To run app locally
         String connectionString = "jdbc:postgresql://localhost:5432/wildlife_tracker";
         Sql2o sql2o = new Sql2o(connectionString, "moringa", "Access1");
@@ -35,16 +34,6 @@ public class App {
         Sql2oSightingDao sightingDao = new Sql2oSightingDao(sql2o);
         Sql2oRangerDao rangerDao = new Sql2oRangerDao(sql2o);
 
-
-        //get: all rangers and their sightings
-        get("/", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            List<Ranger> allRangers = rangerDao.getAll();
-            model.put("rangers", allRangers);
-//            List<Sighting> sightings = sightingDao.getAll();
-//            model.put("sightings", sightings);
-            return new ModelAndView(model, "index.hbs");
-        }, new HandlebarsTemplateEngine());
 
         //get: form to register ranger
         get("/rangers/new", (req, res) -> {
@@ -54,71 +43,81 @@ public class App {
             return new ModelAndView(model, "ranger-form.hbs"); //new layout
         }, new HandlebarsTemplateEngine());
 
-        //post: ranger registration inputs
-        post("/rangers", (req, res) -> { //new
-            Map<String, Object> model = new HashMap<>();
-            String name = req.queryParams("name");
-           Ranger newRanger = new Ranger(name);
-            rangerDao.add(newRanger);
-            res.redirect("/");
-            return null;
-        }, new HandlebarsTemplateEngine());
-
-        //get  specific ranger and their sighting
-        get("/rangers/:id", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            int idOfRangerToFind = Integer.parseInt(req.params("id")); //new
-            Ranger foundRanger = rangerDao.findById(idOfRangerToFind);
-            model.put("ranger", foundRanger);
-            List<Sighting> allSightingsByRanger = rangerDao.getAllSightingsByRanger(idOfRangerToFind);
-            model.put("sightings", allSightingsByRanger);
-            model.put("rangers", rangerDao.getAll());
-            return new ModelAndView(model, "ranger-detail.hbs"); //new
-        }, new HandlebarsTemplateEngine());
-
-
         //get: form to record sightings
-        get("/rangers", (req, res) -> {
+        get("/sightings", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-//            List<Sighting> sightings = sightingDao.getAll();
-//            model.put("rangers", sightings);
-
-            List<Ranger> rangers = rangerDao.getAll();
-            model.put("rangers", rangers);
+            List<Sighting> sightings = sightingDao.getAll();
+            model.put("rangers", sightings);
             return new ModelAndView(model, "sighting-form.hbs");
         }, new HandlebarsTemplateEngine());
 
-        //task: post sightings
-        post("/sightings/new", (req, res) -> { //URL to make new task on POST route
-            Map<String, Object> model = new HashMap<>();
-         List<Ranger> allRangers = rangerDao.getAll();
-           model.put("rangers", allRangers);
+
+//        //get: all rangers and their sightings
+//        get("/", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            List<Ranger> allRangers = rangerDao.getAll();
+//            model.put("rangers", allRangers);
 //            List<Sighting> sightings = sightingDao.getAll();
 //            model.put("sightings", sightings);
-            String description = req.queryParams("description");
-            int categoryId = Integer.parseInt(req.queryParams("categoryId"));
-            String animal = req.queryParams("animal");
-            String age = req.queryParams("age");
-            String health = req.queryParams("health");
-            String zone = req.queryParams("zone");
-            Sighting newSighting = new Sighting( description, categoryId, animal,age,health,zone);
-            sightingDao.add(newSighting);
-            res.redirect("/");
-            return null;
-        }, new HandlebarsTemplateEngine());
-
-        //get: show sightings by rangers
-        get("/rangers/:category_id/sightings/:sighting_id", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            int idOfSightingToFind = Integer.parseInt(req.params("sighting_id")); //pull id - must match route segment
-            Sighting foundSighting = sightingDao.findById(idOfSightingToFind); //use it to find task
-            int idOfRangerToFind = Integer.parseInt(req.params("category_id"));
-            Ranger foundRanger = rangerDao.findById(idOfRangerToFind);
-            model.put("ranger", foundRanger);
-            model.put("sighting", foundSighting); //add it to model for template to display
-            model.put("rangers", rangerDao.getAll()); //refresh list of links for navbar
-            return new ModelAndView(model, "sighting-detail.hbs"); //individual task page.
-        }, new HandlebarsTemplateEngine());
-
+//            return new ModelAndView(model, "index.hbs");
+//        }, new HandlebarsTemplateEngine());
+//
+//        //post: ranger registration inputs
+//        post("/rangers", (req, res) -> { //new
+//            Map<String, Object> model = new HashMap<>();
+//            String name = req.queryParams("name");
+//           Ranger newRanger = new Ranger(name);
+//            rangerDao.add(newRanger);
+//            res.redirect("/");
+//            return null;
+//        }, new HandlebarsTemplateEngine());
+//
+//        //get  specific ranger and their sighting
+//        get("/rangers/:id", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            int idOfRangerToFind = Integer.parseInt(req.params("id")); //new
+//            Ranger foundRanger = rangerDao.findById(idOfRangerToFind);
+//            model.put("ranger", foundRanger);
+//            List<Sighting> allSightingsByRanger = rangerDao.getAllSightingsByRanger(idOfRangerToFind);
+//            model.put("sightings", allSightingsByRanger);
+//            model.put("rangers", rangerDao.getAll());
+//            return new ModelAndView(model, "ranger-detail.hbs"); //new
+//        }, new HandlebarsTemplateEngine());
+//
+//
+//
+//        //task: post sightings
+//        post("/sightings/new", (req, res) -> { //URL to make new task on POST route
+//            Map<String, Object> model = new HashMap<>();
+//         List<Ranger> allRangers = rangerDao.getAll();
+//           model.put("rangers", allRangers);
+////            List<Sighting> sightings = sightingDao.getAll();
+////            model.put("sightings", sightings);
+//            String description = req.queryParams("description");
+//            int categoryId = Integer.parseInt(req.queryParams("categoryId"));
+//            String animal = req.queryParams("animal");
+//            String age = req.queryParams("age");
+//            String health = req.queryParams("health");
+//            String zone = req.queryParams("zone");
+//            Sighting newSighting = new Sighting( description, categoryId, animal,age,health,zone);
+//            sightingDao.add(newSighting);
+//            res.redirect("/");
+//            return null;
+//        }, new HandlebarsTemplateEngine());
+//
+//        //get: show sightings by rangers
+//        get("/rangers/:category_id/sightings/:sighting_id", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            int idOfSightingToFind = Integer.parseInt(req.params("sighting_id")); //pull id - must match route segment
+//            Sighting foundSighting = sightingDao.findById(idOfSightingToFind); //use it to find task
+//            int idOfRangerToFind = Integer.parseInt(req.params("category_id"));
+//            Ranger foundRanger = rangerDao.findById(idOfRangerToFind);
+//            model.put("ranger", foundRanger);
+//            model.put("sighting", foundSighting); //add it to model for template to display
+//            model.put("rangers", rangerDao.getAll()); //refresh list of links for navbar
+//            return new ModelAndView(model, "sighting-detail.hbs"); //individual task page.
+//        }, new HandlebarsTemplateEngine());
+//
+//    }
     }
 }
