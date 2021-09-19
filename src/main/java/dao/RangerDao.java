@@ -8,6 +8,7 @@ public interface RangerDao {
 
     //LIST
     List<Ranger> getAll();
+
     List<Sighting> getAllSightingsByRanger(int categoryId);
 
     //CREATE
@@ -16,10 +17,5 @@ public interface RangerDao {
     //READ
     Ranger findById(int id);
 
-    //UPDATE
-    void update(int id, String ranger,String zone,String name);
 
-    //DELETE
-    void deleteById(int id);
-    void clearAllRangers();
 }

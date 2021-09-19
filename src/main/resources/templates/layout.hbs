@@ -7,11 +7,14 @@
 <body>
 <ul class="nav nav-tabs">
     <li role="presentation" class="active"><a href="/">Home</a></li>
-    <li role="presentation"><a href="/sightings/new">Record a Sighting</a></li>
+    <li role="presentation"><a href="/">Record a Sighting</a></li>
+    <li role="presentation" class="active"><a href="/">View all sightings</a></li>
+    <li role="presentation"><a href="/">Record a Sighting</a></li>
+
 
     <li role="presentation" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            Category Menu <span class="caret"></span>
+            Register a ranger <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
             {{#if rangers}}
@@ -44,8 +47,7 @@
         <div class="container">
             <hr>
             <p class="text-muted">
-                <a href="/rangers/delete">Delete ranger and sighting information</a><br>
-                <a href="/sightings/delete">Delete all sightings</a>
+
             </p>
         </div>
     </footer>

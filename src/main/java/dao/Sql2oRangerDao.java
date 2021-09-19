@@ -38,9 +38,6 @@ public class Sql2oRangerDao implements RangerDao {
         }
     }
 
-
-
-
     @Override
     public Ranger findById(int id) {
         try (Connection con = sql2o.open()) {
@@ -51,44 +48,6 @@ public class Sql2oRangerDao implements RangerDao {
     }
 
     @Override
-    public void update(int id, String newRanger, String newZone, String newName) {
-        String sql = "UPDATE rangers SET  name = :name WHERE id=:id";
-        try (Connection con = sql2o.open()) {
-            con.createQuery(sql)
-                    .addParameter("name", newName)
-                    .addParameter("id", id)
-                    .addParameter("zone", newZone)
-                    .addParameter("ranger", newRanger)
-                    .executeUpdate();
-        } catch (Sql2oException ex) {
-            System.out.println(ex);
-        }
-    }
-
-    @Override
-    public void deleteById(int id) {
-        String sql = "DELETE FROM rangers WHERE id=:id"; //raw sql
-        try (Connection con = sql2o.open()) {
-            con.createQuery(sql)
-                    .addParameter("id", id)
-                    .executeUpdate();
-        } catch (Sql2oException ex) {
-            System.out.println(ex);
-        }
-    }
-
-    @Override
-    public void clearAllRangers() {
-        String sql = "DELETE FROM rangers"; //raw sql
-        try (Connection con = sql2o.open()) {
-            con.createQuery(sql)
-                    .executeUpdate();
-        } catch (Sql2oException ex) {
-            System.out.println(ex);
-        }
-    }
-
-   @Override
     public  List<Sighting> getAllSightingsByRanger(int categoryId) {
         String sql = "SELECT * FROM sightings WHERE categoryId = :categoryId";
         try (Connection con = sql2o.open()) {

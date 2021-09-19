@@ -1,15 +1,13 @@
 {{#partial "content"}}
-    <h1>{{ranger.name}}</h1>
-    <p>Sightings by {{ranger.name}}:</p>
-    <ul>
-        {{#each sightings}}
-            <li>
-                <p><a href="/rangers/{{ranger.id}}/sightings/{{id}}">{{description}}</a></p>
-            </li>
-        {{/each}}
-    </ul>
-    <a href="/rangers/{{ranger.id}}/edit">Edit this ranger details.</a><br>
-    <a href="/rangers/{{ranger.id}}/delete">De-Register this ranger.</a>
+<!--    <h1>{{ranger.name}}</h1>-->
+<!--    <p>Sightings by {{ranger.name}}:</p>-->
+<!--    <ul>-->
+<!--        {{#each sightings}}-->
+<!--            <li>-->
+<!--                <p><a href="/rangers/{{ranger.id}}/sightings/{{id}}">{{description}}</a></p>-->
+<!--            </li>-->
+<!--        {{/each}}-->
+<!--    </ul>-->
 {{/partial}}
 
 {{> layout.hbs}}
