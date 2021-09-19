@@ -1,4 +1,35 @@
 {{#partial "content"}}
+
+    <form action="/sightings" method="post">
+        <h2>Add a new sighting</h2>
+                        <label for="description">Status</label>
+                        <input id="description" name="description" type="text">
+                    </br>
+                        <label for="categoryId">Author(Ranger):</label>
+                        <select id="categoryId" name="categoryId">
+                                {{#each rangers}}
+                                <option value="{{id}}">{{name}}</option>
+                                {{/each}}
+                        </select>
+                        </br>
+                        <label for="animal">Class</label>
+                        <input id="animal" name="animal" type="text">
+                        </br>
+
+                        <label for="age">Age</label>
+                        <input id="age" name="animal" type="text">
+                        </br>
+                        <label for="health">Health</label>
+                        <input id="health" name="animal" type="text">
+                        </br>
+                        <label for="zone">Zone</label>
+                        <input id="zone" name="animal" type="text">
+                        </br>
+
+                       <p>Don't see the right category?<a href="/rangers/new">Add a new one first.</a></p>
+    </form>
+    <button type="submit" class="btn btn-default">Go!</button>
+
 <!--    {{#if editSighting}}-->
 <!--        <h1>Edit this Sighting!</h1>-->
 <!--        <form action="/sightings/{{sighting.id}}" method="post">-->

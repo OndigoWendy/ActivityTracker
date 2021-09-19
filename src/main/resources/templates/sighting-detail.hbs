@@ -1,5 +1,14 @@
 {{#partial "content"}}
 
+    {{#if sightings}}
+        {{#each sighting}}
+            <li><a href="/sightings/new">{{name}}</a></li>
+        {{/each}}
+
+    {{else}}
+        <li><a href="/rangers/new">Register as a Ranger</a></li>
+    {{/if}}
+
 <!--    <p>Status {{ sighting.description }}</p>-->
 <!--    <p>Category of this task: {{ ranger.name }}</p>-->
 <!--    <h5>-->

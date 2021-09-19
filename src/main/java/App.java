@@ -35,7 +35,7 @@ public class App {
         Sql2oRangerDao rangerDao = new Sql2oRangerDao(sql2o);
 
 
-        //get: form to register ranger
+        //get: ranger view and form
         get("/rangers/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Ranger> rangers = rangerDao.getAll();
