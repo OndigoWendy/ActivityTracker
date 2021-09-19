@@ -34,6 +34,16 @@ public class App {
         Sql2oSightingDao sightingDao = new Sql2oSightingDao(sql2o);
         Sql2oRangerDao rangerDao = new Sql2oRangerDao(sql2o);
 
+     //   get: all rangers and their sightings
+        get("/", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+//            List<Ranger> allRangers = rangerDao.getAll();
+//            model.put("rangers", allRangers);
+//            List<Sighting> sightings = sightingDao.getAll();
+//            model.put("sightings", sightings);
+            return new ModelAndView(model, "index.hbs");
+        }, new HandlebarsTemplateEngine());
+
 
         //get: ranger view and form
         get("/rangers/new", (req, res) -> {
