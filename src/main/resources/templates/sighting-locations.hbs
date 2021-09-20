@@ -1,0 +1,16 @@
+
+{{#partial "content"}}
+    {{#if sightings}}
+        <h2 class="text-center"style="color: #fff;font-size: xx-large;font-weight: 600;">All Locations</h2>
+        <ul class="list-group" style="opacity:0.7;">
+        {{#each sightings}}
+            <li class="list-group-item"><a href="/sightings/{{location}}/details">{{location}}</a></li>
+        {{/each}}
+        </ul>
+    {{else}}
+        <h5 class="text-center">No locations have been added. Report a sighting to add a new location</h5>
+    {{/if}}
+
+{{/partial}}
+
+{{> layout.hbs}}

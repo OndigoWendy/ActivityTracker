@@ -1,0 +1,17 @@
+
+{{#partial "content"}}
+    {{#if rangers}}
+        <h2 class="text-center" style="color: #fff;font-size: xx-large;font-weight: 600;" >Our Dedicated Rangers</h2>
+        <ul class="list-group" style="opacity:0.5">
+
+            {{#each rangers}}
+                <li class="list-group-item">{{name}}</a></li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <h5 class="text-center">No rangers registered. Report a sighting become  a ranger</h5>
+    {{/if}}
+
+{{/partial}}
+
+{{> layout.hbs}}

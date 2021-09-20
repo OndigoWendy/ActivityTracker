@@ -1,17 +1,31 @@
+
+
 {{#partial "content"}}
-
-    <h1> RECENT SIGHTINGS</h1>
-
-    <h1>{{ranger.name}}</h1>
-    <p>Sightings by {{ranger.name}}:</p>
-    <ul>
-        {{#each sightings}}
-            <li>
-                <p><a href="/rangers/{{ranger.id}}/sightings/{{id}}">{{description}}</a></p>
-            </li>
-        {{/each}}
-    </ul>
-
+    {{#if sightings}}
+        <h4 class="text-center" style="color: #fff;font-size: xx-large;font-weight: 600;">Data collected on the animal sightings</h4>
+        <table class="table text-center">
+            <thead style="background-color:#fff; color:black;opacity:0.5;">
+            <tr>
+                <th scope="col">Animal Seen</th>
+                <th scope="col">Location</th>
+                <th scope="col">Spotted On</th>
+                <th scope="col">Ranger</th>
+            </tr>
+            </thead>
+            <tbody style="color:#fff;">
+            {{#each sightings}}
+                <tr>
+                    <td>{{animalName}}</td>
+                    <td>{{location}}</td>
+                    <td>{{readableTimestamp}}</td>
+                    <td>{{rangerName}}</a></td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    {{else}}
+        <h5 class="text-center">No animals sighted yet. Report a sighting to have it appear here</h5>
+    {{/if}}
 {{/partial}}
 
 {{> layout.hbs}}

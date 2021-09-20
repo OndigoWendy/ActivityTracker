@@ -1,37 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{#block "title"}}AnimalTracker{{/block}}</title>
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
-</head>
-<body>
+{{#block "header"}}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>{{#block "title"}}Safari Tracker{{/block}}</title>
+        <link href="https://fonts.googleapis.com/css?family=Mukta|Nunito|Poppins:500&display=swap" rel="stylesheet">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link rel='stylesheet' href='/app.css'>
+    </head>
+    <body style="background-color:black;">
+{{/block}}
+<!--begin main template-->
 <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a href="/">Home</a></li>
-    <li role="presentation"><a href="/sightings">Record a Sighting</a></li>
-    <li role="presentation" class="active"><a href="/rangers/:id/sighting/new">View all sightings</a></li>
-    <li role="presentation"><a href="/">Record a Sighting</a></li>
-
-
-    <li role="presentation" class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            Register a ranger <span class="caret"></span>
+    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+    <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            View Animals
         </a>
-        <ul class="dropdown-menu">
-            {{#if rangers}}
-                {{#each rangers}}
-                    <li><a href="/rangers/{{id}}">{{name}}</a></li>
-                {{/each}}
-                <li><a href="/rangers/new">Register as a Ranger</a></li>
-
-            {{else}}
-                <li><a href="/rangers/new">Register as a Ranger</a></li>
-            {{/if}}
-        </ul>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/animals/endangered">Endangered</a>
+            <a class="dropdown-item" href="/animals/not-endangered">Not Endangered</a>
+        </div>
     </li>
+    <li class="nav-item"><a class="nav-link" href="/rangers">Our Rangers</a></li>
+    <li class="nav-item"><a class="nav-link" href="/sightings">Sighting Locations</a></li>
+    <li class="nav-item"><a class="nav-link" href="/sighting/new">New Sighting</a></li>
 </ul>
 <div class="container">
     <!--begin main template-->
     <div class="page-header">
+        <!--        <img src="/images/caspar-rubin-224229.jpg" width="70%">-->
         <h1>SMART RANGER <small>SAVING THE PLANET</small></h1>
     </div>
 
@@ -43,16 +40,11 @@
 </div>
 <!--end main template-->
 {{#block "footer"}}
-    <footer class="footer">
-        <div class="container">
-            <hr>
-            <p class="text-muted">
-
-            </p>
-        </div>
-    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </html>
 {{/block}}
+
+

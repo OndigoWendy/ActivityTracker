@@ -2,11 +2,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import dao.Sql2oRangerDao;
-import dao.Sql2oSightingDao;
+
+import models.Endangered;
+import models.NonEndangered;
 import models.Ranger;
 import models.Sighting;
-import org.sql2o.Sql2o;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import static spark.Spark.*;
@@ -14,161 +14,138 @@ import static spark.Spark.*;
 
 @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
 public class App {
-    //static int getHerokuAssignedPort() {
-//    ProcessBuilder processBuilder = new ProcessBuilder();
-//    if (processBuilder.environment().get("PORT") != null) {
-//      return Integer.parseInt(processBuilder.environment().get("PORT"));
-//    }
-//    return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
-//  }
 
     public static void main(String[] args) {
         staticFileLocation("/public");
 
 
-        //After
-//To run app locally
-        String connectionString = "jdbc:postgresql://localhost:5432/wildlife_tracker";
-        Sql2o sql2o = new Sql2o(connectionString, "moringa", "Access1");
-
-        Sql2oSightingDao sightingDao = new Sql2oSightingDao(sql2o);
-        Sql2oRangerDao rangerDao = new Sql2oRangerDao(sql2o);
-
-     //   get: all rangers and their sightings
-        get("/", (req, res) -> {
+        //get: Homepage
+        get("/",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Ranger> rangers = rangerDao.getAll();
-            model.put("rangers", rangers);
-            List<Sighting> sightings = sightingDao.getAll();
-            model.put("sightings", sightings);
-            return new ModelAndView(model, "index.hbs");
-        }, new HandlebarsTemplateEngine());
-
-
-        //get: ranger view and form
-        get("/rangers/new", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            List<Ranger> rangers = rangerDao.getAll();
-            model.put("rangers", rangers);
-            return new ModelAndView(model, "ranger-form.hbs"); //new layout
-        }, new HandlebarsTemplateEngine());
-
-        //post: ranger registration inputs
-        post("/rangers", (req, res) -> { //new
-            Map<String, Object> model = new HashMap<>();
-            String name = req.queryParams("name");
-           Ranger newRanger = new Ranger(name);
-            rangerDao.add(newRanger);
-            res.redirect("/");
-            return null;
-        }, new HandlebarsTemplateEngine());
-
-        //get: form to record sightings
-        get("/sightings", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            List<Sighting> sightings = sightingDao.getAll();
-            model.put("sightings", sightings);
-            return new ModelAndView(model, "sighting-form.hbs");
-        }, new HandlebarsTemplateEngine());
-
-
-
-//post: sighting  inputs
-        post("/sightings/new", (req, res) -> { //new
-            Map<String, Object> model = new HashMap<>();
-            String description = req.queryParams("description");
-            int categoryId = Integer.parseInt(req.queryParams("categoryId"));
-            String animal = req.queryParams("animal");
-            String age = req.queryParams("age");
-            String health = req.queryParams("health");
-            String zone = req.queryParams("zone");
-            Sighting newSighting = new Sighting( description, categoryId, animal,age,health,zone);
-            sightingDao.add(newSighting);
-            res.redirect("/");
-            return null;
-        }, new HandlebarsTemplateEngine());
-
-        //get  specific ranger and their sighting
-        get("/rangers/:id", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            int idOfRangerToFind = Integer.parseInt(req.params("id")); //new
-            Ranger foundRanger = rangerDao.findById(idOfRangerToFind);
-            model.put("ranger", foundRanger);
-            List<Sighting> allSightingsByRanger = rangerDao.getAllSightingsByRanger(idOfRangerToFind);
-            model.put("sightings", allSightingsByRanger);
-            model.put("rangers", rangerDao.getAll());
-            return new ModelAndView(model, "ranger-detail.hbs");
-        }, new HandlebarsTemplateEngine());
-    //    SULTAN
-        //get: form to add animals to specific ranger
-        get("/rangers/:id/sightings/new",(request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            int id = Integer.parseInt(request.params("id"));
-            Ranger specificRanger = rangerDao.findById(id);
-            model.put("specificRanger",specificRanger);
-            model.put("sightings", sightingDao.getAll());
-            return new ModelAndView(model,"input.hbs");
+            List<Sighting> allSightings = Sighting.all();
+            model.put("sightings", allSightings);
+            return new ModelAndView(model,"index.hbs");
         },new HandlebarsTemplateEngine());
 
+        //get: retrieve endangered animals
+        get("/animals/endangered",(request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("endangered", Endangered.all());
+            return new ModelAndView(model,"endangered.hbs");
+        },new HandlebarsTemplateEngine());
 
-//        //get: all rangers and their sightings
-//        get("/", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            List<Ranger> allRangers = rangerDao.getAll();
-//            model.put("rangers", allRangers);
-//            List<Sighting> sightings = sightingDao.getAll();
-//            model.put("sightings", sightings);
-//            return new ModelAndView(model, "index.hbs");
-//        }, new HandlebarsTemplateEngine());
-//
-//
-//
-//        //get  specific ranger and their sighting
-//        get("/rangers/:id", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            int idOfRangerToFind = Integer.parseInt(req.params("id")); //new
-//            Ranger foundRanger = rangerDao.findById(idOfRangerToFind);
-//            model.put("ranger", foundRanger);
-//            List<Sighting> allSightingsByRanger = rangerDao.getAllSightingsByRanger(idOfRangerToFind);
-//            model.put("sightings", allSightingsByRanger);
-//            model.put("rangers", rangerDao.getAll());
-//            return new ModelAndView(model, "ranger-detail.hbs"); //new
-//        }, new HandlebarsTemplateEngine());
-//
-//
-//
-//        //task: post sightings
-//        post("/sightings/new", (req, res) -> { //URL to make new task on POST route
-//            Map<String, Object> model = new HashMap<>();
-//         List<Ranger> allRangers = rangerDao.getAll();
-//           model.put("rangers", allRangers);
-////            List<Sighting> sightings = sightingDao.getAll();
-////            model.put("sightings", sightings);
-//            String description = req.queryParams("description");
-//            int categoryId = Integer.parseInt(req.queryParams("categoryId"));
-//            String animal = req.queryParams("animal");
-//            String age = req.queryParams("age");
-//            String health = req.queryParams("health");
-//            String zone = req.queryParams("zone");
-//            Sighting newSighting = new Sighting( description, categoryId, animal,age,health,zone);
-//            sightingDao.add(newSighting);
-//            res.redirect("/");
-//            return null;
-//        }, new HandlebarsTemplateEngine());
-//
-//        //get: show sightings by rangers
-//        get("/rangers/:category_id/sightings/:sighting_id", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            int idOfSightingToFind = Integer.parseInt(req.params("sighting_id")); //pull id - must match route segment
-//            Sighting foundSighting = sightingDao.findById(idOfSightingToFind); //use it to find task
-//            int idOfRangerToFind = Integer.parseInt(req.params("category_id"));
-//            Ranger foundRanger = rangerDao.findById(idOfRangerToFind);
-//            model.put("ranger", foundRanger);
-//            model.put("sighting", foundSighting); //add it to model for template to display
-//            model.put("rangers", rangerDao.getAll()); //refresh list of links for navbar
-//            return new ModelAndView(model, "sighting-detail.hbs"); //individual task page.
-//        }, new HandlebarsTemplateEngine());
-//
-//    }
+        //get: retrieve non-endangered animals
+        get("/animals/not-endangered",(request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("normal", NonEndangered.all());
+            return new ModelAndView(model,"nonendangered.hbs");
+        },new HandlebarsTemplateEngine());
+
+        //get: New Sighting Form
+        get("/sighting/new",(request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("sightings", Sighting.all());
+            return new ModelAndView(model,"sighting-form.hbs");
+        },new HandlebarsTemplateEngine());
+
+        //Post: Sighting Submission
+        post("/sighting/new",(request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String rangerName = request.queryParams("rangerName").trim();
+            String animalName = request.queryParams("animalName").trim();
+            String animalAge = request.queryParams("animalAge").trim();
+            String animalHealth = request.queryParams("animalHealth").trim();
+            String location = request.queryParams("location").trim();
+            String animalType = request.queryParams("animalType").trim();
+
+            Ranger newRanger = new Ranger(rangerName);
+            newRanger.save();
+
+            if(animalType.equalsIgnoreCase("Endangered")){
+                Endangered endangered = new Endangered(animalName,animalHealth,animalAge);
+                endangered.save();
+                Sighting newSighting = new Sighting(endangered.getName(),location,newRanger.getId());
+                newSighting.save();
+            }
+            else{
+                NonEndangered nonEndangered = new NonEndangered(animalName,animalHealth,animalAge);
+                nonEndangered.save();
+                Sighting newSighting = new Sighting(nonEndangered.getName(),location,newRanger.getId());
+                newSighting.save();
+            }
+            return new ModelAndView(model,"success.hbs");
+        },new HandlebarsTemplateEngine());
+
+        //get: retrieve all sightings by location
+        get("/sightings",(request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("sightings", Sighting.all());
+            return new ModelAndView(model,"sighting-locations.hbs");
+        },new HandlebarsTemplateEngine());
+
+        //get: retrieve all sightings by location
+        get("/sightings/:location/details",(request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String filter = request.params("location");
+            model.put("location",filter);
+            model.put("sightings", Sighting.getAllSightingsInLocation(filter));
+            return new ModelAndView(model,"sighting-location-details.hbs");
+        },new HandlebarsTemplateEngine());
+
+        //get: ranger details
+        get("/rangers/:id/details",(request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(request.params("id"));
+            Ranger foundRanger = Ranger.find(id);
+            List<Sighting> mySightings = foundRanger.mySightings();
+            model.put("ranger",foundRanger);
+            model.put("sightings",mySightings);
+            return new ModelAndView(model,"ranger-details.hbs");
+        },new HandlebarsTemplateEngine());
+
+        //get: all rangers
+        get("/rangers",(request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("rangers", Ranger.all());
+            return new ModelAndView(model,"rangerlist.hbs");
+        },new HandlebarsTemplateEngine());
+
+        //get: form to add animals to specific ranger
+        get("/rangers/:id/sighting/new",(request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(request.params("id"));
+            Ranger specificRanger = Ranger.find(id);
+            model.put("specificRanger",specificRanger);
+            model.put("sightings", Sighting.all());
+            return new ModelAndView(model,"sighting-form.hbs");
+        },new HandlebarsTemplateEngine());
+
+        //post: form to add animals to specific ranger
+        post("/rangers/:id/sighting/new",(request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(request.params("id"));
+            Ranger specificRanger = Ranger.find(id);
+            String animalName = request.queryParams("animalName").trim();
+            String animalAge = request.queryParams("animalAge").trim();
+            String animalHealth = request.queryParams("animalHealth").trim();
+            String location = request.queryParams("location").trim();
+            String animalType = request.queryParams("animalType").trim();
+
+            if(animalType.equalsIgnoreCase("Endangered")){
+                Endangered endangered = new Endangered(animalName,animalHealth,animalAge);
+                endangered.save();
+                Sighting newSighting = new Sighting(endangered.getName(),location,specificRanger.getId());
+                newSighting.save();
+            }
+            else{
+                NonEndangered nonEndangered = new NonEndangered(animalName,animalHealth,animalAge);
+                nonEndangered.save();
+                Sighting newSighting = new Sighting(nonEndangered.getName(),location,specificRanger.getId());
+                newSighting.save();
+            }
+
+            return new ModelAndView(model,"success.hbs");
+        },new HandlebarsTemplateEngine());
+
     }
-}
+    }

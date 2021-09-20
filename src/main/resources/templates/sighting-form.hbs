@@ -1,86 +1,73 @@
+
 {{#partial "content"}}
-
-<!--    <form action="/sightings" method="post">-->
-<!--        <h2>Add a new sighting</h2>-->
-<!--                        <label for="description">Status</label>-->
-<!--                        <input id="description" name="description" type="text">-->
-<!--                    </br>-->
-<!--                        <label for="categoryId">Author(Ranger):</label>-->
-<!--                        <select id="categoryId" name="categoryId">-->
-<!--                                {{#each rangers}}-->
-<!--                                <option value="{{id}}">{{name}}</option>-->
-<!--                                {{/each}}-->
-<!--                        </select>-->
-<!--                        </br>-->
-<!--                        <label for="animal">Class</label>-->
-<!--                        <input id="animal" name="animal" type="text">-->
-<!--                        </br>-->
-
-<!--                        <label for="age">Age</label>-->
-<!--                        <input id="age" name="animal" type="text">-->
-<!--                        </br>-->
-<!--                        <label for="health">Health</label>-->
-<!--                        <input id="health" name="animal" type="text">-->
-<!--                        </br>-->
-<!--                        <label for="zone">Zone</label>-->
-<!--                        <input id="zone" name="animal" type="text">-->
-<!--                        </br>-->
-
-<!--                       <p>Don't see the right category?<a href="/rangers/new">Add a new one first.</a></p>-->
-<!--    </form>-->
-<!--    <button type="submit" class="btn btn-default">Go!</button>-->
-
-    {{#if editSighting}}
-        <h1>Edit this Sighting!</h1>
-        <form action="/sightings/{{sighting.id}}" method="post">
-            <br>
-            <label for="description">Edit animal name</label>
-            <input id="description" name="description" type="text" value="{{sighting.description}}">
-            <br>
-            <label for="rangerId">Update sighting author:</label>
-            <select id="rangerId" name="rangerId">
-                {{#each rangers}}
-                    <option value="{{id}}">{{name}}</option>
-                {{/each}}
-            </select>
-            <p>Not registerd?<a href="/rangers/new">Register Here.</a></p>
-            <button type="submit" class="btn btn-default">Register!</button>
-        </form>
+    <h3 class="text-center"style="color: #fff;font-size: xx-large;font-weight: 600;">Record a new sighting!</h3>
+    {{#if specificRanger}}
+        <form action="/rangers/{{specificRanger.id}}/sighting/new" method="post" style="color:white;">
+            <div class="form-group">
+                <label for="rangerName">Ranger Name</label>
+                <input type="text" id="rangerName" name="rangerName" class="form-control" value="{{specificRanger.name}}" disabled>
+            </div>
     {{else}}
-        <h2>Add a new sighting</h2>
-        <form action="/sightings/new" method="post">
-            {{#if rangers}}
-                <label for="description">Status</label>
-                <input id="description" name="description" type="text">
-            </br>
-                <label for="categoryId">Author(Ranger):</label>
-                <select id="categoryId" name="categoryId">
-                    {{#each rangers}}
-                        <option value="{{id}}">{{name}}</option>
-                    {{/each}}
-                </select>
-                </br>
-                <label for="animal">Class</label>
-                <input id="animal" name="animal" type="text">
-                </br>
-
-                <label for="age">Age</label>
-                <input id="age" name="animal" type="text">
-                </br>
-                <label for="health">Health</label>
-                <input id="health" name="animal" type="text">
-                </br>
-                <label for="zone">Zone</label>
-                <input id="zone" name="animal" type="text">
-                </br>
-
-                <p>Don't see the right category?<a href="/rangers/new">Add a new one first.</a></p>
-            {{else}}
-                <h3> You'll need to add a category before you add a task. <a href="/rangers/new">Add one here.</a> </h3>
-            {{/if}}
-            <button type="submit" class="btn btn-default">Go!</button>
-        </form>
+        <form action="/sighting/new" method="post">
+            <div class="form-group">
+                <label for="rangerName">Ranger Name</label>
+                <input type="text" id="rangerName" name="rangerName" class="form-control" required>
+            </div>
     {{/if}}
+        <div class="form-group">
+            <label for="animalName">Animal Name</label>
+            {{#if sightings}}
+                <input type="text" id="animalName" name="animalName" class="form-control" list="prevAnimals" required>
+                <datalist id="prevAnimals">
+                    {{#each sightings}}
+                    <option value={{animalName}}>
+                    {{/each}}
+                </datalist>
+            {{else}}
+                <input type="text" id="animalName" name="animalName" class="form-control" required>
+            {{/if}}
+        </div>
+        <div class="form-group">
+            <label for="animalAge">Animal Age</label>
+            <select name="animalAge" id="animalAge" class="form-control" required>
+                <option value="New born">New born</option>
+                <option value="Baby">Baby</option>
+                <option value="Young adult">Young adult</option>
+                <option value="Adult">Adult</option>
+                <option value="Elderly">Elderly</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="animalHealth">Animal Health</label>
+            <select name="animalHealth" id="animalHealth" class="form-control" required>
+                <option value="Healthy">Healthy</option>
+                <option value="Sick">Sick</option>
+                <option value="Malnourished">Malnourished</option>
+                <option value="Verge of death">Verge of death</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            {{#if sightings}}
+                <input type="text" id="location" name="location" class="form-control" list="prevLocations" required>
+                <datalist id="prevLocations">
+                    {{#each sightings}}
+                        <option value={{location}}>
+                    {{/each}}
+                </datalist>
+            {{else}}
+                <input type="text" id="location" name="location" class="form-control" required>
+            {{/if}}
+        </div>
+        <div class="form-group">
+            <label for="animalType">Animal Status</label>
+            <select name="animalType" id="animalType" class="form-control" required>
+                <option value="Endangered">Endangered</option>
+                <option value="Not Endangered">Not Endangered</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-outline-success">Submit</button>
+    </form>
 {{/partial}}
 
 {{> layout.hbs}}
