@@ -19,7 +19,7 @@ public class App {
         staticFileLocation("/public");
 
 
-        //get: Homepage
+        //get: index page
         get("/",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<Sighting> allSightings = Sighting.all();
@@ -27,28 +27,28 @@ public class App {
             return new ModelAndView(model,"index.hbs");
         },new HandlebarsTemplateEngine());
 
-        //get: retrieve endangered animals
+        //get:endangered animals
         get("/animals/endangered",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("endangered", Endangered.all());
             return new ModelAndView(model,"endangered.hbs");
         },new HandlebarsTemplateEngine());
 
-        //get: retrieve non-endangered animals
+        //get: non-endangered animals
         get("/animals/not-endangered",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("normal", NonEndangered.all());
             return new ModelAndView(model,"nonendangered.hbs");
         },new HandlebarsTemplateEngine());
 
-        //get: New Sighting Form
+        //get: new sighting form view
         get("/sighting/new",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("sightings", Sighting.all());
             return new ModelAndView(model,"sighting-form.hbs");
         },new HandlebarsTemplateEngine());
 
-        //Post: Sighting Submission
+        //Post: post sighting
         post("/sighting/new",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String rangerName = request.queryParams("rangerName").trim();
@@ -76,14 +76,14 @@ public class App {
             return new ModelAndView(model,"success.hbs");
         },new HandlebarsTemplateEngine());
 
-        //get: retrieve all sightings by location
+        //get: sightings per location view
         get("/sightings",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("sightings", Sighting.all());
             return new ModelAndView(model,"sighting-locations.hbs");
         },new HandlebarsTemplateEngine());
 
-        //get: retrieve all sightings by location
+        //get:sightings per location form
         get("/sightings/:location/details",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String filter = request.params("location");
@@ -92,7 +92,7 @@ public class App {
             return new ModelAndView(model,"sighting-location-details.hbs");
         },new HandlebarsTemplateEngine());
 
-        //get: ranger details
+        //get: ranger sightings
         get("/rangers/:id/details",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(request.params("id"));
@@ -110,7 +110,7 @@ public class App {
             return new ModelAndView(model,"rangerlist.hbs");
         },new HandlebarsTemplateEngine());
 
-        //get: form to add animals to specific ranger
+        //get:sighting per ranger
         get("/rangers/:id/sighting/new",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(request.params("id"));
@@ -120,7 +120,7 @@ public class App {
             return new ModelAndView(model,"sighting-form.hbs");
         },new HandlebarsTemplateEngine());
 
-        //post: form to add animals to specific ranger
+        //post:sighting per ranger
         post("/rangers/:id/sighting/new",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(request.params("id"));
