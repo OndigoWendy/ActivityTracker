@@ -37,10 +37,10 @@ public class App {
      //   get: all rangers and their sightings
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-//            List<Ranger> allRangers = rangerDao.getAll();
-//            model.put("rangers", allRangers);
-//            List<Sighting> sightings = sightingDao.getAll();
-//            model.put("sightings", sightings);
+            List<Ranger> rangers = rangerDao.getAll();
+            model.put("rangers", rangers);
+            List<Sighting> sightings = sightingDao.getAll();
+            model.put("sightings", sightings);
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -64,15 +64,17 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get: form to record sightings
-        get("/sightings/new", (req, res) -> {
+        get("/sightings", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Sighting> sightings = sightingDao.getAll();
             model.put("sightings", sightings);
             return new ModelAndView(model, "sighting-form.hbs");
         }, new HandlebarsTemplateEngine());
 
+
+
 //post: sighting  inputs
-        post("/sightings", (req, res) -> { //new
+        post("/sightings/new", (req, res) -> { //new
             Map<String, Object> model = new HashMap<>();
             String description = req.queryParams("description");
             int categoryId = Integer.parseInt(req.queryParams("categoryId"));
@@ -85,6 +87,29 @@ public class App {
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
+
+        //get  specific ranger and their sighting
+        get("/rangers/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfRangerToFind = Integer.parseInt(req.params("id")); //new
+            Ranger foundRanger = rangerDao.findById(idOfRangerToFind);
+            model.put("ranger", foundRanger);
+            List<Sighting> allSightingsByRanger = rangerDao.getAllSightingsByRanger(idOfRangerToFind);
+            model.put("sightings", allSightingsByRanger);
+            model.put("rangers", rangerDao.getAll());
+            return new ModelAndView(model, "ranger-detail.hbs");
+        }, new HandlebarsTemplateEngine());
+    //    SULTAN
+        //get: form to add animals to specific ranger
+        get("/rangers/:id/sightings/new",(request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(request.params("id"));
+            Ranger specificRanger = rangerDao.findById(id);
+            model.put("specificRanger",specificRanger);
+            model.put("sightings", sightingDao.getAll());
+            return new ModelAndView(model,"input.hbs");
+        },new HandlebarsTemplateEngine());
+
 
 //        //get: all rangers and their sightings
 //        get("/", (req, res) -> {

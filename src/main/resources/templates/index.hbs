@@ -2,7 +2,15 @@
 
     <h1> RECENT SIGHTINGS</h1>
 
-
+    <h1>{{ranger.name}}</h1>
+    <p>Sightings by {{ranger.name}}:</p>
+    <ul>
+        {{#each sightings}}
+            <li>
+                <p><a href="/rangers/{{ranger.id}}/sightings/{{id}}">{{description}}</a></p>
+            </li>
+        {{/each}}
+    </ul>
 
 {{/partial}}
 
