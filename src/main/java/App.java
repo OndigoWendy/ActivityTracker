@@ -100,7 +100,7 @@ public class App {
             List<Sighting> mySightings = foundRanger.mySightings();
             model.put("ranger",foundRanger);
             model.put("sightings",mySightings);
-            return new ModelAndView(model,"ranger-details.hbs");
+            return new ModelAndView(model,"rangerlist.hbs");
         },new HandlebarsTemplateEngine());
 
         //get: all rangers

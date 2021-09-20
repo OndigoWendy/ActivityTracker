@@ -9,23 +9,32 @@
     </head>
     <body style="background-color:black;">
 {{/block}}
-<!--begin main template-->
-<ul class="nav nav-tabs">
-    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-    <li class="nav-item dropdown active">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            View Animals
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/animals/endangered">Endangered</a>
-            <a class="dropdown-item" href="/animals/not-endangered">Not Endangered</a>
-        </div>
-    </li>
-    <li class="nav-item"><a class="nav-link" href="/rangers">Our Rangers</a></li>
-    <li class="nav-item"><a class="nav-link" href="/sightings">Sighting Locations</a></li>
-    <li class="nav-item"><a class="nav-link" href="/sighting/new">New Sighting</a></li>
-</ul>
-<div class="container">
+    <ul class="nav nav-tabs" STYLE="padding:1%;">
+        <li role="presentation" class="active" style="padding:2%;"><a href="/">HOME</a></li>
+        <li role="presentation"  style="padding:2%;" ><a href="/sighting/new">ADD SIGHTINGS</a></li>
+
+        <li role="presentation" class="dropdown" style="padding:2%;">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                STATUS <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" style="padding:2%;">
+                <li><a href="/animals/endangered">ENDANGERED</a></li>
+
+                <li><a href="/animals/not-endangered">NOT-ENDANGERED</a></li>
+            </ul>
+        </li>
+
+        <li role="presentation" class="dropdown" style="padding:2%;">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+               SIGHTING REPORTS <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                        <li><a href="/rangers">ALL RANGERS</a></li>
+
+                    <li><a href="/sightings">LOCATIONS</a></li>
+            </ul>
+        </li>
+    </ul>
     <!--begin main template-->
     <div class="page-header">
         <!--        <img src="/images/caspar-rubin-224229.jpg" width="70%">-->
