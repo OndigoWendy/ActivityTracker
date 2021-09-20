@@ -1,10 +1,10 @@
-//package models;//import models.EndangeredAnimal;
+//package models;
 //import org.junit.Rule;
 //import org.junit.Test;
 //
 //import static org.junit.Assert.*;
 //
-//public class EndangeredAnimalTest {
+//public class endangeredTest {
 //    @Rule
 //    public DatabaseRule databaseRule = new DatabaseRule();
 //

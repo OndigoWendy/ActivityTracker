@@ -11,7 +11,7 @@
 //    public DatabaseRule databaseRule = new DatabaseRule();
 //
 //    private Ranger newRanger(){
-//        return new Ranger("Nike");
+//        return new Ranger("Wendy");
 //    }
 //
 //    @Test
@@ -23,7 +23,7 @@
 //    @Test
 //    public void getName_returnRangerName_true(){
 //        Ranger ranger = newRanger();
-//        assertEquals("Nike",ranger.getName());
+//        assertEquals("Wendy",ranger.getName());
 //    }
 //
 //    @Test
@@ -47,7 +47,7 @@
 //    @Test
 //    public void find_getParticularRanger(){
 //        Ranger ranger = newRanger();
-//        Ranger ranger1 = new Ranger("Stark");
+//        Ranger ranger1 = new Ranger("Alice");
 //        ranger.save();
 //        ranger1.save();
 //        assertTrue(Ranger.find(ranger.getId()).equals(ranger));

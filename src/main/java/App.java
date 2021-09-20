@@ -41,7 +41,7 @@ public class App {
             return new ModelAndView(model,"nonendangered.hbs");
         },new HandlebarsTemplateEngine());
 
-        //get: new sighting form view
+        //get: new sighting form-view
         get("/sighting/new",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("sightings", Sighting.all());

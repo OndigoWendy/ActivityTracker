@@ -14,10 +14,10 @@
 //    public DatabaseRule databaseRule = new DatabaseRule();
 //
 //    private Sighting newSighting(){
-//        return new Sighting("Kondoo","Zone A",1);
+//        return new Sighting("Lion","Zone A",1);
 //    }
 //
-//    private Sighting newSighting2(){return new Sighting("Mbuzi","Zone B",2);}
+//    private Sighting newSighting2(){return new Sighting("Zebra","Zone B",2);}
 //
 //    @Test
 //    public void sighting_instantiatesCorrectly(){
@@ -28,7 +28,7 @@
 //    @Test
 //    public void getAnimalId_returnAnimalName_true(){
 //        Sighting sighting = newSighting();
-//        assertEquals("Kondoo",sighting.getAnimalName());
+//        assertEquals("Lion",sighting.getAnimalName());
 //    }
 //
 //    @Test
@@ -92,7 +92,7 @@
 //    public void filter_getSightingInSingleLocation_true(){
 //        Sighting sighting1 = newSighting();
 //        Sighting sighting2 = newSighting2();
-//        Sighting sighting3 = new Sighting("Mbwa","Zone A",3);
+//        Sighting sighting3 = new Sighting("Antelope","Zone A",3);
 //        sighting1.save();
 //        sighting2.save();
 //        sighting3.save();

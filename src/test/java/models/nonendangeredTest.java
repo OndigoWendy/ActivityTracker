@@ -4,7 +4,7 @@
 //
 //import static org.junit.Assert.*;
 //
-//public class NormalAnimalTest {
+//public class nonendangeredTest {
 //
 //    @Rule
 //    public DatabaseRule databaseRule = new DatabaseRule();
