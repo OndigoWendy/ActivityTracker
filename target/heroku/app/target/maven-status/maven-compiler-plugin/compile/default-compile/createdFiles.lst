@@ -1,0 +1,7 @@
+models/Animal.class
+App.class
+models/Ranger.class
+models/Sighting.class
+models/NonEndangered.class
+models/Database.class
+models/Endangered.class

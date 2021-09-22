@@ -100,13 +100,15 @@
 //}
 package models;
 
+import dao.RangerDao;
+import dao.RangerDao1;
 import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
 
 import java.util.List;
 import java.util.Objects;
 
-public class Ranger {
+public class Ranger implements RangerDao1 {
     private int id;
     private String name;
 
@@ -127,15 +129,18 @@ public class Ranger {
         return Objects.hash(name);
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
    //DAO OPERATIONS
+    @Override
     public void save(){
         if(!crossCheck()){
             String sql = "INSERT INTO rangers(name) VALUES(:name)";
@@ -150,21 +155,7 @@ public class Ranger {
         }
     }
 
-    public static List<Ranger> all(){
-        try(Connection con = Database.sql2o.open()){
-            return con.createQuery("SELECT * FROM rangers")
-                    .executeAndFetch(Ranger.class);
-        }
-    }
-
-    public static Ranger find(int searchId){
-        try(Connection con = Database.sql2o.open()){
-            return con.createQuery("SELECT * FROM rangers WHERE id=:id")
-                    .addParameter("id",searchId)
-                    .executeAndFetchFirst(Ranger.class);
-        }
-    }
-
+    @Override
     public List<Sighting> mySightings(){
         String sql = "SELECT * FROM sightings WHERE rangerid=:id";
         try(Connection con = Database.sql2o.open()){
@@ -174,6 +165,7 @@ public class Ranger {
         }
     }
 
+    @Override
     public void delete(){
         try(Connection con = Database.sql2o.open()){
             con.createQuery("DELETE FROM rangers WHERE id=:id")
@@ -183,7 +175,7 @@ public class Ranger {
     }
 
     private boolean crossCheck(){
-        for(Ranger ranger: Ranger.all()){
+        for(Ranger ranger: RangerDao1.all()){
             if(this.getName().equals(ranger.getName())){
                 this.id = ranger.id;
                 this.name = ranger.name;

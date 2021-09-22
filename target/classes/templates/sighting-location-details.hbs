@@ -1,0 +1,29 @@
+
+<link rel='stylesheet' href='css/app.css'>
+{{#partial "content"}}
+    <h2 class="text-center"style="color:#fff;"><u><b>{{location}}</b></u></h2>
+    <h4 class="text-center"style="color:#fff;">Animals Spotted In This Region</h4>
+    <table class="table text-center"  style="opacity:0.1">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Ranger</th>
+            <th scope="col">Animal sighted</th>
+            <th scope="col">Date/time</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {{#each sightings}}
+            <tr>
+                <td><a href="/rangers/{{rangerid}}/details">{{rangerName}}</a></td>
+                <td>{{animalName}}</td>
+                <td>{{readableTimestamp}}</td>
+
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+
+{{/partial}}
+
+{{> layout.hbs}}

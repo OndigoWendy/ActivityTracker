@@ -151,6 +151,8 @@
 
 package models;
 
+import dao.RangerDao1;
+import dao.SightingDao;
 import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
 
@@ -160,7 +162,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class  Sighting {
+public class  Sighting implements SightingDao {
     private String animalName;
     private int rangerid;
     private String location;
@@ -230,7 +232,7 @@ public class  Sighting {
     }
 
     public String getRangerName(){
-        return Ranger.find(rangerid).getName();
+        return RangerDao1.find(rangerid).getName();
     }
 
     public static List<Sighting> all(){
