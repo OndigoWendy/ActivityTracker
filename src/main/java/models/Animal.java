@@ -10,7 +10,7 @@ import java.util.Objects;
 @SuppressWarnings("ALL")
 public abstract class Animal {
 
-    Sql2o sql2o = new Sql2o("jdbc:postgresql://ec2-44-198-223-154.compute-1.amazonaws.com:5432:5432/daa7t7lmet2sou?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", "zmpkonnizwzucd","c795ec211f480b77e7d471dbf87206d4dce5b428b0f59f062fb4da72c5bda9f3");
+    Sql2o sql2o = new Sql2o("jdbc:postgresql://ec2-44-198-223-154.compute-1.amazonaws.com:5432:5432/daa7t7lmet2sou?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", "zmpkonnizwzucd", "c795ec211f480b77e7d471dbf87206d4dce5b428b0f59f062fb4da72c5bda9f3");
     public int id;
     public String name;
     public String health;
@@ -22,7 +22,7 @@ public abstract class Animal {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Animal animal = (Animal) o;
-        return  Objects.equals(name, animal.name) &&
+        return Objects.equals(name, animal.name) &&
                 Objects.equals(health, animal.health) &&
                 Objects.equals(age, animal.age) &&
                 Objects.equals(species, animal.species);
@@ -70,26 +70,26 @@ public abstract class Animal {
     }
 
     //  DAO
-    public void save(){
-        try(Connection con = Database.sql2o.open()) {
+    public void save() {
+        try (Connection con = Database.sql2o.open()) {
             String sql = "INSERT INTO animals(name,health, age, species) values (:name,:health,:age,:species)";
-            this.id = (int) con.createQuery(sql,true)
+            this.id = (int) con.createQuery(sql, true)
                     .addParameter("name", this.name)
                     .addParameter("health", this.health)
-                    .addParameter("age",this.age)
-                    .addParameter("species",this.species)
+                    .addParameter("age", this.age)
+                    .addParameter("species", this.species)
                     .executeUpdate()
                     .getKey();
-        }catch (Sql2oException ex) {
+        } catch (Sql2oException ex) {
             System.out.println(ex);
         }
     }
 
-    public static List<String> allAnimalNames(){
-        try(Connection con = Database.sql2o.open()){
+    public static List<String> allAnimalNames() {
+        try (Connection con = Database.sql2o.open()) {
             return con.createQuery("SELECT name FROM animals")
                     .executeAndFetch(String.class);
         }
     }
-
 }
+
