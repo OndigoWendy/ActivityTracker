@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Map;
 
 
-import dao.RangerDao1;
+import dao.RangerDao;
 import models.Endangered;
 import models.NonEndangered;
 import models.Ranger;
@@ -106,7 +106,7 @@ public class App {
         get("/rangers/:id/details",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(request.params("id"));
-            Ranger foundRanger = RangerDao1.find(id);
+            Ranger foundRanger = RangerDao.find(id);
             List<Sighting> mySightings = foundRanger.mySightings();
             model.put("ranger",foundRanger);
             model.put("sightings",mySightings);
@@ -116,7 +116,7 @@ public class App {
         //get: all rangers
         get("/rangers",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            model.put("rangers", RangerDao1.all());
+            model.put("rangers", RangerDao.all());
             return new ModelAndView(model,"rangerlist.hbs");
         },new HandlebarsTemplateEngine());
 
@@ -124,7 +124,7 @@ public class App {
         get("/rangers/:id/sighting/new",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(request.params("id"));
-            Ranger specificRanger = RangerDao1.find(id);
+            Ranger specificRanger = RangerDao.find(id);
             model.put("specificRanger",specificRanger);
             model.put("sightings", Sighting.all());
             return new ModelAndView(model,"sighting-form.hbs");
@@ -134,7 +134,7 @@ public class App {
         post("/rangers/:id/sighting/new",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(request.params("id"));
-            Ranger specificRanger = RangerDao1.find(id);
+            Ranger specificRanger = RangerDao.find(id);
             String animalName = request.queryParams("animalName").trim();
             String animalAge = request.queryParams("animalAge").trim();
             String animalHealth = request.queryParams("animalHealth").trim();

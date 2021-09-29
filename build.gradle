@@ -31,7 +31,7 @@ dependencies {
     implementation group: 'com.sparkjava', name: 'spark-debug-tools', version: '0.5'
     implementation group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41+'
     implementation group: 'org.sql2o', name: 'sql2o', version: '1.5.4+'
-//    implementation group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4' // ADD ME FOR POSTGRES VERSION 9.x
-//    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.2' // ADD ME FOR POSTGRES VERSION 10.x
+    implementation group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4' // ADD ME FOR POSTGRES VERSION 9.x
+   implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.2' // ADD ME FOR POSTGRES VERSION 10.x
 
 }

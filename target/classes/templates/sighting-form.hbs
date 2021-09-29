@@ -28,13 +28,18 @@
             {{/if}}
         </div>
         <div class="form-group" style="width:70vw; margin-left:80px; color:white;">
+            <label for="animalType">Animal Status</label>
+            <select name="animalType" id="animalType" class="form-control" required>
+                <option value="Endangered">Endangered</option>
+                <option value="Not Endangered">Not Endangered</option>
+            </select>
+        </div>
+        <div class="form-group" style="width:70vw; margin-left:80px; color:white;">
             <label for="animalAge">Animal Age</label>
             <select name="animalAge" id="animalAge" class="form-control" required>
-                <option value="New born">New born</option>
-                <option value="Baby">Baby</option>
-                <option value="Young adult">Young adult</option>
+                <option value="New born">Newborn</option>
+                <option value="Young">Young</option>
                 <option value="Adult">Adult</option>
-                <option value="Elderly">Elderly</option>
             </select>
         </div>
         <div class="form-group" style="width:70vw; margin-left:80px; color:white;">
@@ -42,8 +47,7 @@
             <select name="animalHealth" id="animalHealth" class="form-control" required>
                 <option value="Healthy">Healthy</option>
                 <option value="Sick">Sick</option>
-                <option value="Malnourished">Malnourished</option>
-                <option value="Verge of death">Verge of death</option>
+                <option value="Okay">Okay</option>
             </select>
         </div>
         <div class="form-group" style="width:70vw; margin-left:80px; color:white;">
@@ -59,13 +63,7 @@
                 <input type="text" id="location" name="location" class="form-control" required>
             {{/if}}
         </div>
-        <div class="form-group" style="width:70vw; margin-left:80px; color:white;">
-            <label for="animalType">Animal Status</label>
-            <select name="animalType" id="animalType" class="form-control" required>
-                <option value="Endangered">Endangered</option>
-                <option value="Not Endangered">Not Endangered</option>
-            </select>
-        </div>
+
         <button type="submit" class="btn btn-outline-success">Submit</button>
     </form>
 

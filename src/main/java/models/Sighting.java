@@ -151,7 +151,7 @@
 
 package models;
 
-import dao.RangerDao1;
+import dao.RangerDao;
 import dao.SightingDao;
 import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
@@ -232,7 +232,7 @@ public class  Sighting implements SightingDao {
     }
 
     public String getRangerName(){
-        return RangerDao1.find(rangerid).getName();
+        return RangerDao.find(rangerid).getName();
     }
 
     public static List<Sighting> all(){

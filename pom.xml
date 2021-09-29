@@ -107,7 +107,7 @@
                     <!-- Change this to YOUR application name! -->
                     <appName>wildlife-tracker-w</appName>
                     <processTypes>
-                        <!--            <web>java -jar target/my-app-1.0-jar-with-dependencies.jar</web>-->
+<!--                                    <web>java -jar target/my-app-1.0-jar-with-dependencies.jar</web>-->
                         <web>java $JAVA_OPTS -cp target/classes:target/dependency/* App</web>
                     </processTypes>
                 </configuration>

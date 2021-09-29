@@ -101,14 +101,13 @@
 package models;
 
 import dao.RangerDao;
-import dao.RangerDao1;
 import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
 
 import java.util.List;
 import java.util.Objects;
 
-public class Ranger implements RangerDao1 {
+public class Ranger implements RangerDao {
     private int id;
     private String name;
 
@@ -175,7 +174,7 @@ public class Ranger implements RangerDao1 {
     }
 
     private boolean crossCheck(){
-        for(Ranger ranger: RangerDao1.all()){
+        for(Ranger ranger: RangerDao.all()){
             if(this.getName().equals(ranger.getName())){
                 this.id = ranger.id;
                 this.name = ranger.name;

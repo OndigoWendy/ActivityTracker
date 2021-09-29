@@ -3,5 +3,7 @@
 /home/moringa/IdeaProjects/wildlife-tracker/src/main/java/models/Endangered.java
 /home/moringa/IdeaProjects/wildlife-tracker/src/main/java/models/NonEndangered.java
 /home/moringa/IdeaProjects/wildlife-tracker/src/main/java/App.java
+/home/moringa/IdeaProjects/wildlife-tracker/src/main/java/dao/SightingDao.java
 /home/moringa/IdeaProjects/wildlife-tracker/src/main/java/models/Animal.java
 /home/moringa/IdeaProjects/wildlife-tracker/src/main/java/models/Sighting.java
+/home/moringa/IdeaProjects/wildlife-tracker/src/main/java/dao/RangerDao.java
